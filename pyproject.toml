@@ -10,6 +10,7 @@ Django = "^4.0.3"
 djangorestframework = "^3.13.1"
 requests = "^2.27.1"
 beaufort-scale = "^1.0.1"
+python-decouple = "^3.6"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,4 +1,5 @@
 import requests
+from django.conf import settings
 
 
 class OpenWeatherIntegrator:
@@ -22,7 +23,7 @@ class OpenWeatherIntegrator:
     
     def get_open_weather_data(self, city=str, country=str):
         
-        api_key = '1508a9a4840a5574c822d70ca2132032'
+        api_key = settings.API_WEATHER_API_KEY
         url = 'http://api.openweathermap.org/data/2.5/weather?'
         url += f'q={city},{country}&appid={api_key}'
         content, status = self._call_get_api(url)
