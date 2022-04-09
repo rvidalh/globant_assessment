@@ -49,3 +49,4 @@ Access to the API use the follow example url http://127.0.0.1:8000/api/weather/s
 CITY is the name of the city to get weather eg. BOGOTA
 COUNTRY is the country code to get weather eg. CO
 
+NOW YOU CAN USE THE API!
