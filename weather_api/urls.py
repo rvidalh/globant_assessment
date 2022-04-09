@@ -17,18 +17,10 @@ from apps.weather import views
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
-from django.urls import re_path
-from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/', include('apps.weather.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^(?P<city>[a-zA-Z]+)/(?P<country>[a-zA-Z]+)',
-    views.WeatherInfo.as_view(),
-    name='get-weather')
 ]

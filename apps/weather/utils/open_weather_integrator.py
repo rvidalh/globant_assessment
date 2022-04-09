@@ -11,8 +11,7 @@ class OpenWeatherIntegrator:
             url,
             timeout=60,
         )
-
-        if result.status_code == 200:
+        if result.status_code in [200, 400, 403, 404, 500]:
             try:
                 content = result.json()
             except AttributeError:
