@@ -3,16 +3,14 @@ import beaufort_scale
 
 from datetime import datetime
 
-from django.contrib.auth.models import User, Group
-from django.utils import timezone
-
-from rest_framework import permissions
 from rest_framework.views import APIView
+from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework import status
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from rest_framework.response import Response
+from django.utils import timezone
 
-from apps.weather.serializers import UserSerializer, GroupSerializer
 from apps.weather.utils.open_weather_integrator import OpenWeatherIntegrator
 from apps.weather.helpers.temp_converter import TempConverter
 from apps.weather.helpers.wind_descriptor import WindDescriptor
@@ -23,12 +21,16 @@ class WeatherInfo(APIView):
 
     @method_decorator(cache_page(60*2))
     def get(self, request, city=str, country=str):
+
+        if len(country) > 2:
+            return Response({'result': 'The country code must be 2 character long.'}, status=status.HTTP_400_BAD_REQUEST)
+
         open_weather_integrator = OpenWeatherIntegrator()
-        content, status = open_weather_integrator.get_open_weather_data(city=city, country=country)
+        content, api_status = open_weather_integrator.get_open_weather_data(city=city, country=country.lower())
         headers = { 'content-type': 'application/json', }
 
-        if status != 200:
-            return Response({'result': content}, status=status)
+        if api_status != 200:
+            return Response({'result': content}, status=api_status)
 
         temps_helper= TempConverter()
         wind_descriptor = WindDescriptor()
@@ -84,4 +86,4 @@ class WeatherInfo(APIView):
                 "maximum_temperature": f'{max_temp_celsius}°C/{max_temp_fahrenheit}°F',
             },
         }
-        return Response(response_json, status=status, headers=headers)
+        return Response(response_json, status=api_status, headers=headers)
