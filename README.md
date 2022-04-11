@@ -31,9 +31,6 @@ Create a copy of the .example.env file in the same folder and call it .env
 
 API_WEATHER_API_KEY=WRITE HERE THE KEY
 
-For this purpouse here is the not private key
-KEY=1508a9a4840a5574c822d70ca2132032
-
 
 STEP 4 RUN PROJECT AND USE THE WEATHER API
 
