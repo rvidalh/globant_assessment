@@ -5,7 +5,7 @@ description = "\"Globant assessment\""
 authors = ["\"Rodrigo Vidal\""]
 
 [tool.poetry.dependencies]
-python = "^3.8.10"
+python = "^3.8"
 Django = "^4.0.3"
 djangorestframework = "^3.13.1"
 requests = "^2.27.1"
